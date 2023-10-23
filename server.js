@@ -5,7 +5,6 @@ import "dotenv/config";
 
 const app = express();
 const port = 3000;
-const API_URL = "https://blog-api-jfvm.onrender.com";
 
 app.use(express.static("public"));
 
