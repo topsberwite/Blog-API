@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 // Route to render the main page
 app.get("/", async (req, res) => {
   try {
-    const response = await axios.get(`${process.env.API_URL}/posts`);
+    const response = await axios.get(process.env.API_URL + "/posts");
     console.log(response);
     res.render("index.ejs", { posts: response.data });
   } catch (error) {
@@ -31,7 +31,7 @@ app.get("/new", (req, res) => {
 app.get("/edit/:id", async (req, res) => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/posts/${req.params.id}`
+      process.env.API_URL + `/posts/${req.params.id}`
     );
     console.log(response.data);
     res.render("modify.ejs", {
@@ -47,7 +47,7 @@ app.get("/edit/:id", async (req, res) => {
 // Create a new post
 app.post("/api/posts", async (req, res) => {
   try {
-    const response = await axios.post(`${process.env.API_URL}/posts`, req.body);
+    const response = await axios.post(process.env.API_URL + "/posts", req.body);
     console.log(response.data);
     res.redirect("/");
   } catch (error) {
@@ -60,7 +60,7 @@ app.post("/api/posts/:id", async (req, res) => {
   console.log("called");
   try {
     const response = await axios.patch(
-      `${process.env.API_URL}/posts/${req.params.id}`,
+      process.env.API_URL + `/posts/${req.params.id}`,
       req.body
     );
     console.log(response.data);
@@ -73,7 +73,7 @@ app.post("/api/posts/:id", async (req, res) => {
 // Delete a post
 app.get("/api/posts/delete/:id", async (req, res) => {
   try {
-    await axios.delete(`${process.env.API_URL}/posts/${req.params.id}`);
+    await axios.delete(process.env.API_URL + `/posts/${req.params.id}`);
     res.redirect("/");
   } catch (error) {
     res.status(500).json({ message: "Error deleting post" });
